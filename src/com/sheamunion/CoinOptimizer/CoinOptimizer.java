@@ -5,14 +5,33 @@ import java.util.Map;
 
 public class CoinOptimizer {
 
+    public class CustomTuple {
+        private Integer coins;
+        private Double remainder;
+
+        public CustomTuple(Integer coins, Double remainder) {
+            this.coins = coins;
+            this.remainder = remainder;
+        }
+
+        public Integer getCoins() {
+            return coins;
+        }
+
+        public Double getRemainder() {
+            return remainder;
+        }
+    }
+
     public CoinOptimizer() {}
 
     public Map<String, Integer> optimize(Double value) {
         Map<String, Integer> result = new HashMap<String, Integer>();
 
-        Double[] silverDollarsAndRemainder = getSilverDollarsAndRemainder(value);
-        Double silverDollars = silverDollarsAndRemainder[0], remainder = silverDollarsAndRemainder[1];
-        result.put("silver-dollar", silverDollars.intValue());
+        CustomTuple silverDollarsAndRemainder = getSilverDollarsAndRemainder(value);
+        Integer silverDollars = silverDollarsAndRemainder.getCoins();
+        Double remainder = silverDollarsAndRemainder.getRemainder();
+        result.put("silver-dollar", silverDollars);
 
         Double[] halfDollarsAndRemainder = getHalfDollarsAndRemainder(remainder);
         Double halfDollars = halfDollarsAndRemainder[0];
@@ -22,11 +41,11 @@ public class CoinOptimizer {
         return result;
     }
 
-    public Double[] getSilverDollarsAndRemainder(Double value) {
-        Double quotient = value / 100;
+    public CustomTuple getSilverDollarsAndRemainder(Double value) {
+        Integer quotient = value.intValue() / 100;
         Double remainder = value % 100;
 
-        return new Double[]{quotient, remainder};
+        return new CustomTuple(quotient, remainder);
     }
 
     public Double[] getHalfDollarsAndRemainder(Double value) {

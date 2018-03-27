@@ -34,12 +34,28 @@ public class CoinOptimizerTest {
 
     @Test
     public void getSilverDollarsReturnsCorrectNumberOfSilverDollars() throws Exception {
-        Double expectedOutput = 2.0;
+        Integer expectedSilverDollars = 2;
+        Double expectedRemainder = 0.0;
 
-        Double[] result = optimizer.getSilverDollarsAndRemainder(200.0);
-        Double silverDollars = result[0];
+        CoinOptimizer.CustomTuple result = optimizer.getSilverDollarsAndRemainder(200.0);
+        Integer silverDollars = result.getCoins();
+        Double remainder = result.getRemainder();
 
-        assertEquals(expectedOutput, silverDollars);
+        assertEquals("Silver dollars", expectedSilverDollars, silverDollars);
+        assertEquals("Remainder", expectedRemainder, remainder);
+    }
+
+    @Test
+    public void whenDollarValueIsNotAWholeNumber() throws Exception {
+        Integer expectedSilverDollars = 2;
+        Double expectedRemainder = 99.0;
+
+        CoinOptimizer.CustomTuple result = optimizer.getSilverDollarsAndRemainder(299.0);
+        Integer silverDollars = result.getCoins();
+        Double remainder = result.getRemainder();
+
+        assertEquals("Silver dollars", expectedSilverDollars, silverDollars);
+        assertEquals("Remainder", expectedRemainder, remainder);
     }
 
     @Test
