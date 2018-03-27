@@ -12,6 +12,19 @@ public class CoinOptimizerTest {
 
     private CoinOptimizer optimizer;
 
+    private Map<String, Integer> generateExpectedCaseOutput(Integer[] coins) {
+        Map<String, Integer> expectedOutput = new HashMap<>();
+
+        expectedOutput.put("silver-dollar", coins[0]);
+        expectedOutput.put("half-dollar", coins[1]);
+        expectedOutput.put("quarter", coins[2]);
+        expectedOutput.put("dime", coins[3]);
+        expectedOutput.put("nickel", coins[4]);
+        expectedOutput.put("penny", coins[5]);
+
+        return expectedOutput;
+    }
+
     @Before
     public void setUp() throws Exception {
         optimizer = new CoinOptimizer();
@@ -19,29 +32,9 @@ public class CoinOptimizerTest {
 
     @Test
     public void optimizingWithValidInputReturnsCorrectHash() throws Exception {
-        Map<String, Integer> expectedCaseOneOutput = new HashMap<>();
-        expectedCaseOneOutput.put("silver-dollar", 0);
-        expectedCaseOneOutput.put("half-dollar", 1);
-        expectedCaseOneOutput.put("quarter", 1);
-        expectedCaseOneOutput.put("dime", 2);
-        expectedCaseOneOutput.put("nickel", 0);
-        expectedCaseOneOutput.put("penny", 4);
-
-        Map<String, Integer> expectedCaseTwoOutput = new HashMap<>();
-        expectedCaseTwoOutput.put("silver-dollar", 1);
-        expectedCaseTwoOutput.put("half-dollar", 1);
-        expectedCaseTwoOutput.put("quarter", 0);
-        expectedCaseTwoOutput.put("dime", 0);
-        expectedCaseTwoOutput.put("nickel", 1);
-        expectedCaseTwoOutput.put("penny", 1);
-
-        Map<String, Integer> expectedCaseThreeOutput = new HashMap<>();
-        expectedCaseThreeOutput.put("silver-dollar", 12);
-        expectedCaseThreeOutput.put("half-dollar", 1);
-        expectedCaseThreeOutput.put("quarter", 1);
-        expectedCaseThreeOutput.put("dime", 1);
-        expectedCaseThreeOutput.put("nickel", 0);
-        expectedCaseThreeOutput.put("penny", 0);
+        Map<String, Integer> expectedCaseOneOutput = generateExpectedCaseOutput(new Integer[] {0,1,1,2,0,4});
+        Map<String, Integer> expectedCaseTwoOutput = generateExpectedCaseOutput(new Integer[] {1,1,0,0,1,1});
+        Map<String, Integer> expectedCaseThreeOutput = generateExpectedCaseOutput(new Integer[] {12,1,1,1,0,0});
 
         Map<String, Integer> caseOneOutput = optimizer.optimize(99.0);
         Map<String, Integer> caseTwoOutput = optimizer.optimize(156.0);

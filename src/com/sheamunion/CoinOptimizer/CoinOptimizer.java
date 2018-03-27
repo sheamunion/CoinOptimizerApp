@@ -44,7 +44,7 @@ public class CoinOptimizer {
         result.put("silver-dollar", coins);
 
         for (String key : COIN_VALUES.keySet()) {
-            if (key == "silver-dollar") {
+            if (key.equals("silver-dollar")) {
                 continue;
             }
             coinsAndRemainder = getCoinsAndRemainder(remainder, COIN_VALUES.get(key));
