@@ -11,6 +11,7 @@ import static org.junit.Assert.*;
 public class CoinOptimizerTest {
 
     private CoinOptimizer optimizer;
+    public Integer SILVER_DOLLAR = 100;
 
     @Before
     public void setUp() throws Exception {
@@ -18,7 +19,7 @@ public class CoinOptimizerTest {
     }
 
     @Test
-    public void optimizingWithValidInputRetursCorrectHash() throws Exception {
+    public void optimizingWithValidInputReturnsCorrectHash() throws Exception {
         Map<String, Integer> expectedOutput = new HashMap<String, Integer>();
         expectedOutput.put("silver-dollar", 0);
         expectedOutput.put("half-dollar", 1);
@@ -33,15 +34,15 @@ public class CoinOptimizerTest {
     }
 
     @Test
-    public void getSilverDollarsReturnsCorrectNumberOfSilverDollars() throws Exception {
-        Integer expectedSilverDollars = 2;
+    public void returnsCorrectCoinCountAndRemainder() throws Exception {
+        Integer expectedCoins = 2;
         Double expectedRemainder = 0.0;
 
-        CoinOptimizer.CustomTuple result = optimizer.getSilverDollarsAndRemainder(200.0);
-        Integer silverDollars = result.getCoins();
+        CoinOptimizer.CustomTuple result = optimizer.getCoinsAndRemainder(200.0, SILVER_DOLLAR);
+        Integer coins = result.getCoins();
         Double remainder = result.getRemainder();
 
-        assertEquals("Silver dollars", expectedSilverDollars, silverDollars);
+        assertEquals("Coins", expectedCoins, coins);
         assertEquals("Remainder", expectedRemainder, remainder);
     }
 
@@ -50,21 +51,11 @@ public class CoinOptimizerTest {
         Integer expectedSilverDollars = 2;
         Double expectedRemainder = 99.0;
 
-        CoinOptimizer.CustomTuple result = optimizer.getSilverDollarsAndRemainder(299.0);
+        CoinOptimizer.CustomTuple result = optimizer.getCoinsAndRemainder(299.0, SILVER_DOLLAR);
         Integer silverDollars = result.getCoins();
         Double remainder = result.getRemainder();
 
         assertEquals("Silver dollars", expectedSilverDollars, silverDollars);
         assertEquals("Remainder", expectedRemainder, remainder);
-    }
-
-    @Test
-    public void getHalfDollarsReturnsCorrectNumberOfHalfDollars() throws Exception {
-        Double expectedOutput = 1.0;
-
-        Double[] result = optimizer.getHalfDollarsAndRemainder(50.0);
-        Double halfDollars = result[0];
-
-        assertEquals(expectedOutput, halfDollars);
     }
 }

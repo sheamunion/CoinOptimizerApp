@@ -23,35 +23,32 @@ public class CoinOptimizer {
         }
     }
 
+    private static final Integer SILVER_DOLLAR = 100;
+    private static final Integer HALF_DOLLAR = 50;
+
+
     public CoinOptimizer() {}
 
     public Map<String, Integer> optimize(Double value) {
         Map<String, Integer> result = new HashMap<String, Integer>();
 
-        CustomTuple silverDollarsAndRemainder = getSilverDollarsAndRemainder(value);
+        CustomTuple silverDollarsAndRemainder = getCoinsAndRemainder(value, SILVER_DOLLAR);
         Integer silverDollars = silverDollarsAndRemainder.getCoins();
         Double remainder = silverDollarsAndRemainder.getRemainder();
         result.put("silver-dollar", silverDollars);
 
-        Double[] halfDollarsAndRemainder = getHalfDollarsAndRemainder(remainder);
-        Double halfDollars = halfDollarsAndRemainder[0];
-        remainder = halfDollarsAndRemainder[1];
+        CustomTuple halfDollarsAndRemainder = getCoinsAndRemainder(remainder, HALF_DOLLAR);
+        Integer halfDollars = halfDollarsAndRemainder.getCoins();
+        remainder = halfDollarsAndRemainder.getRemainder();
         result.put("half-dollar", halfDollars.intValue());
 
         return result;
     }
 
-    public CustomTuple getSilverDollarsAndRemainder(Double value) {
-        Integer quotient = value.intValue() / 100;
-        Double remainder = value % 100;
+    public CustomTuple getCoinsAndRemainder(Double value, Integer coin) {
+        Integer quotient = value.intValue() / coin;
+        Double remainder = value % coin;
 
         return new CustomTuple(quotient, remainder);
-    }
-
-    public Double[] getHalfDollarsAndRemainder(Double value) {
-        Double quotient = value / 50;
-        Double remainder = value % 50;
-
-        return new Double[]{quotient, remainder};
     }
 }
