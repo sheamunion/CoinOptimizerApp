@@ -41,4 +41,14 @@ public class CoinOptimizerTest {
 
         assertEquals(expectedOutput, silverDollars);
     }
+
+    @Test
+    public void getHalfDollarsReturnsCorrectNumberOfHalfDollars() throws Exception {
+        Double expectedOutput = 1.0;
+
+        Double[] result = optimizer.getHalfDollarsAndRemainder(50.0);
+        Double halfDollars = result[0];
+
+        assertEquals(expectedOutput, halfDollars);
+    }
 }
