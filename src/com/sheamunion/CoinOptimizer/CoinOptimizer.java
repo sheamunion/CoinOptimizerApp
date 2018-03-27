@@ -1,6 +1,7 @@
 package com.sheamunion.CoinOptimizer;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class CoinOptimizer {
@@ -23,25 +24,34 @@ public class CoinOptimizer {
         }
     }
 
-    private static final Integer SILVER_DOLLAR = 100;
-    private static final Integer HALF_DOLLAR = 50;
+    private static final Map<String, Integer> COIN_VALUES = new LinkedHashMap<>();
 
-
-    public CoinOptimizer() {}
+    public CoinOptimizer() {
+        COIN_VALUES.put("silver-dollar", 100);
+        COIN_VALUES.put("half-dollar", 50);
+        COIN_VALUES.put("quarter", 25);
+        COIN_VALUES.put("dime", 10);
+        COIN_VALUES.put("nickel", 5);
+        COIN_VALUES.put("penny", 1);
+    }
 
     public Map<String, Integer> optimize(Double value) {
-        Map<String, Integer> result = new HashMap<String, Integer>();
+        Map<String, Integer> result = new HashMap<>();
 
-        CustomTuple silverDollarsAndRemainder = getCoinsAndRemainder(value, SILVER_DOLLAR);
-        Integer silverDollars = silverDollarsAndRemainder.getCoins();
-        Double remainder = silverDollarsAndRemainder.getRemainder();
-        result.put("silver-dollar", silverDollars);
+        CustomTuple coinsAndRemainder = getCoinsAndRemainder(value, COIN_VALUES.get("silver-dollar"));
+        Integer coins = coinsAndRemainder.getCoins();
+        Double remainder = coinsAndRemainder.getRemainder();
+        result.put("silver-dollar", coins);
 
-        CustomTuple halfDollarsAndRemainder = getCoinsAndRemainder(remainder, HALF_DOLLAR);
-        Integer halfDollars = halfDollarsAndRemainder.getCoins();
-        remainder = halfDollarsAndRemainder.getRemainder();
-        result.put("half-dollar", halfDollars.intValue());
-
+        for (String key : COIN_VALUES.keySet()) {
+            if (key == "silver-dollar") {
+                continue;
+            }
+            coinsAndRemainder = getCoinsAndRemainder(remainder, COIN_VALUES.get(key));
+            coins = coinsAndRemainder.getCoins();
+            remainder = coinsAndRemainder.getRemainder();
+            result.put(key, coins);
+        }
         return result;
     }
 
