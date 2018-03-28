@@ -1,9 +1,10 @@
 package com.sheamunion.CoinOptimizer;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static org.junit.Assert.*;
@@ -13,7 +14,7 @@ public class CoinOptimizerTest {
     private CoinOptimizer optimizer;
 
     private Map<String, Integer> generateExpectedCaseOutput(Integer[] coins) {
-        Map<String, Integer> expectedOutput = new HashMap<>();
+        Map<String, Integer> expectedOutput = new LinkedHashMap<>();
 
         expectedOutput.put("silver-dollar", coins[0]);
         expectedOutput.put("half-dollar", coins[1]);
@@ -46,6 +47,14 @@ public class CoinOptimizerTest {
     }
 
     @Test
+    public void optimizedResultShouldBeOrderedByDescendingCoinValue() {
+        Map<String, Integer> caseOneOutput = optimizer.optimize(99.0);
+
+        assertThat(String.join(",", caseOneOutput.keySet()),  CoreMatchers.containsString("silver-dollar,half-dollar,quarter,dime,nickel,penny"));
+        assertThat(String.join(",", caseOneOutput.keySet()),  CoreMatchers.not(CoreMatchers.containsString("half-dollar,quarter,dime,nickel,penny,silver-dollar")));
+    }
+
+    @Test
     public void returnsCorrectCoinCount() throws Exception {
         Integer expectedCoins = 2;
 
@@ -56,9 +65,9 @@ public class CoinOptimizerTest {
 
     @Test
     public void returnsCorrectRemainder() throws Exception {
-        Double expectedRemainder = 0.79;
+        Double expectedRemainder = 4.0;
 
-        Double remainder = optimizer.getRemainder(0.79, 75);
+        Double remainder = optimizer.getRemainder(79.0, 75);
 
         assertEquals("Remainder", expectedRemainder, remainder);
     }

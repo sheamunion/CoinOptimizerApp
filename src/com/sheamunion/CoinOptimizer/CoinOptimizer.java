@@ -1,6 +1,5 @@
 package com.sheamunion.CoinOptimizer;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -18,7 +17,7 @@ public class CoinOptimizer {
     }
 
     public Map<String, Integer> optimize(Double value) {
-        Map<String, Integer> result = new HashMap<>();
+        Map<String, Integer> result = new LinkedHashMap<>();
 
         Integer coins = getCoins(value, COIN_VALUES.get("silver-dollar"));
         Double remainder = getRemainder(value, COIN_VALUES.get("silver-dollar"));
