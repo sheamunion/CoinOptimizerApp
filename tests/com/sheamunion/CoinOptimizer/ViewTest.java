@@ -39,9 +39,18 @@ public class ViewTest {
 
     @Test
     public void displaysHowToUseTheCLI() throws Exception {
-        String expectedOutput = "Useage: java com.sheamunion.CoinOptimizer.Main <dollarValue>\n";
+        String expectedOutput = "Useage: java com.sheamunion.CoinOptimizer.Main <dollarValue>\n - <dollarValue> formats: 3000.50 or \\$3,000.50 or '$3'\n";
 
         view.displayUseage();
+
+        assertEquals(expectedOutput, myOut.toString());
+    }
+
+    @Test
+    public void displaysInvalidInputMessage() throws Exception {
+        String expectedOutput = "Please enter a well formatted dollar value.\n - <dollarValue> formats: 3000.50 or \\$3,000.50 or '$3'\n";
+
+        view.displayInvalidInput();
 
         assertEquals(expectedOutput, myOut.toString());
     }

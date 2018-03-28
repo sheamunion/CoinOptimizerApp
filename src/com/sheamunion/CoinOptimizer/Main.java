@@ -15,8 +15,15 @@ public class Main {
             System.exit(1);
         }
 
-        Map<String, Integer> result = optimizer.optimize(Double.parseDouble(args[0]) * 100);
+        try {
+            String strippedArg = args[0].replaceAll("[^\\d.,]", "");
+            Double value = Double.valueOf(strippedArg);
 
-        view.displayResults(result);
+            Map<String, Integer> result = optimizer.optimize(value * 100);
+
+            view.displayResults(result);
+        } catch (NumberFormatException nfe) {
+            view.displayInvalidInput();
+        }
     }
 }
