@@ -4,6 +4,7 @@ import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -13,15 +14,15 @@ public class CoinOptimizerTest {
 
     private CoinOptimizer optimizer;
 
-    private Map<String, Integer> generateExpectedCaseOutput(Integer[] coins) {
-        Map<String, Integer> expectedOutput = new LinkedHashMap<>();
+    private Map<String, BigDecimal> generateExpectedCaseOutput(String[] coins) {
+        Map<String, BigDecimal> expectedOutput = new LinkedHashMap<>();
 
-        expectedOutput.put("silver-dollar", coins[0]);
-        expectedOutput.put("half-dollar", coins[1]);
-        expectedOutput.put("quarter", coins[2]);
-        expectedOutput.put("dime", coins[3]);
-        expectedOutput.put("nickel", coins[4]);
-        expectedOutput.put("penny", coins[5]);
+        expectedOutput.put("silver-dollar", new BigDecimal(coins[0]));
+        expectedOutput.put("half-dollar", new BigDecimal(coins[1]));
+        expectedOutput.put("quarter", new BigDecimal(coins[2]));
+        expectedOutput.put("dime", new BigDecimal(coins[3]));
+        expectedOutput.put("nickel", new BigDecimal(coins[4]));
+        expectedOutput.put("penny", new BigDecimal(coins[5]));
 
         return expectedOutput;
     }
@@ -33,13 +34,13 @@ public class CoinOptimizerTest {
 
     @Test
     public void optimizingWithValidInputReturnsCorrectHash() throws Exception {
-        Map<String, Integer> expectedCaseOneOutput = generateExpectedCaseOutput(new Integer[] {0,1,1,2,0,4});
-        Map<String, Integer> expectedCaseTwoOutput = generateExpectedCaseOutput(new Integer[] {1,1,0,0,1,1});
-        Map<String, Integer> expectedCaseThreeOutput = generateExpectedCaseOutput(new Integer[] {12,1,1,1,0,0});
+        Map<String, BigDecimal> expectedCaseOneOutput = generateExpectedCaseOutput(new String[] {"0","1","1","2","0","4"});
+        Map<String, BigDecimal> expectedCaseTwoOutput = generateExpectedCaseOutput(new String[] {"1","1","0","0","1","1"});
+        Map<String, BigDecimal> expectedCaseThreeOutput = generateExpectedCaseOutput(new String[] {"12","1","1","1","0","0"});
 
-        Map<String, Integer> caseOneOutput = optimizer.optimize(99.0);
-        Map<String, Integer> caseTwoOutput = optimizer.optimize(156.0);
-        Map<String, Integer> caseThreeOutput = optimizer.optimize(1285.0);
+        Map<String, BigDecimal> caseOneOutput = optimizer.optimize(new BigDecimal("99.0"));
+        Map<String, BigDecimal> caseTwoOutput = optimizer.optimize(new BigDecimal("156.0"));
+        Map<String, BigDecimal> caseThreeOutput = optimizer.optimize(new BigDecimal("1285.0"));
 
         assertEquals("Case one", expectedCaseOneOutput, caseOneOutput);
         assertEquals("Case two", expectedCaseTwoOutput, caseTwoOutput);
@@ -47,8 +48,17 @@ public class CoinOptimizerTest {
     }
 
     @Test
+    public void optimizesVeryLargeNumbersCorrectly() throws Exception {
+        Map<String, BigDecimal> expectedCaseOneOutput = generateExpectedCaseOutput(new String[] {"999999999999","0","0","1","1","0"});
+
+        Map<String, BigDecimal> caseOneOutput = optimizer.optimize(new BigDecimal("99999999999915"));
+
+        assertEquals("Case one", expectedCaseOneOutput, caseOneOutput);
+    }
+
+    @Test
     public void optimizedResultShouldBeOrderedByDescendingCoinValue() {
-        Map<String, Integer> caseOneOutput = optimizer.optimize(99.0);
+        Map<String, BigDecimal> caseOneOutput = optimizer.optimize(new BigDecimal(99.0));
 
         assertThat(String.join(",", caseOneOutput.keySet()),  CoreMatchers.containsString("silver-dollar,half-dollar,quarter,dime,nickel,penny"));
         assertThat(String.join(",", caseOneOutput.keySet()),  CoreMatchers.not(CoreMatchers.containsString("half-dollar,quarter,dime,nickel,penny,silver-dollar")));
@@ -56,18 +66,18 @@ public class CoinOptimizerTest {
 
     @Test
     public void returnsCorrectCoinCount() throws Exception {
-        Integer expectedCoins = 2;
+        BigDecimal expectedCoins = BigDecimal.valueOf(2);
 
-        Integer resultCoins = optimizer.getCoins(200.0, 100);
+        BigDecimal resultCoins = optimizer.getCoins(new BigDecimal(200.0), new BigDecimal(100));
 
         assertEquals("Coins", expectedCoins, resultCoins);
     }
 
     @Test
     public void returnsCorrectRemainder() throws Exception {
-        Double expectedRemainder = 4.0;
+        BigDecimal expectedRemainder = new BigDecimal(4);
 
-        Double remainder = optimizer.getRemainder(79.0, 75);
+        BigDecimal remainder = optimizer.getRemainder(new BigDecimal(79.0), new BigDecimal(25));
 
         assertEquals("Remainder", expectedRemainder, remainder);
     }

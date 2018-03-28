@@ -1,26 +1,28 @@
 package com.sheamunion.CoinOptimizer;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class CoinOptimizer {
 
-    private static final Map<String, Integer> COIN_VALUES = new LinkedHashMap<>();
+    private static final Map<String, BigDecimal> COIN_VALUES = new LinkedHashMap<>();
 
     public CoinOptimizer() {
-        COIN_VALUES.put("silver-dollar", 100);
-        COIN_VALUES.put("half-dollar", 50);
-        COIN_VALUES.put("quarter", 25);
-        COIN_VALUES.put("dime", 10);
-        COIN_VALUES.put("nickel", 5);
-        COIN_VALUES.put("penny", 1);
+        COIN_VALUES.put("silver-dollar", new BigDecimal("100"));
+        COIN_VALUES.put("half-dollar", new BigDecimal("50"));
+        COIN_VALUES.put("quarter", new BigDecimal("25"));
+        COIN_VALUES.put("dime", new BigDecimal("10"));
+        COIN_VALUES.put("nickel", new BigDecimal("5"));
+        COIN_VALUES.put("penny", new BigDecimal("1"));
     }
 
-    public Map<String, Integer> optimize(Double value) {
-        Map<String, Integer> result = new LinkedHashMap<>();
+    public Map<String, BigDecimal> optimize(BigDecimal value) {
+        Map<String, BigDecimal> result = new LinkedHashMap<>();
 
-        Integer coins = getCoins(value, COIN_VALUES.get("silver-dollar"));
-        Double remainder = getRemainder(value, COIN_VALUES.get("silver-dollar"));
+        BigDecimal coins = getCoins(value, COIN_VALUES.get("silver-dollar"));
+        BigDecimal remainder = getRemainder(value, COIN_VALUES.get("silver-dollar"));
         result.put("silver-dollar", coins);
 
         for (String key : COIN_VALUES.keySet()) {
@@ -34,11 +36,11 @@ public class CoinOptimizer {
         return result;
     }
 
-    public Integer getCoins(Double value, Integer coin) {
-        return value.intValue() / coin;
+    public BigDecimal getCoins(BigDecimal value, BigDecimal coin) {
+        return value.divide(coin).setScale(0, RoundingMode.FLOOR);
     }
 
-    public Double getRemainder(Double value, Integer coin) {
-        return value % coin;
+    public BigDecimal getRemainder(BigDecimal value, BigDecimal coin) {
+        return value.remainder(coin);
     }
 }

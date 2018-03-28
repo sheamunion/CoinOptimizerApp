@@ -1,5 +1,6 @@
 package com.sheamunion.CoinOptimizer;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 public class Main {
@@ -17,9 +18,9 @@ public class Main {
 
         try {
             String strippedArg = args[0].replaceAll("[^\\d.,]", "");
-            Double value = Double.valueOf(strippedArg);
+            BigDecimal value = new BigDecimal(strippedArg).multiply(new BigDecimal("100"));
 
-            Map<String, Integer> result = optimizer.optimize(value * 100);
+            Map<String, BigDecimal> result = optimizer.optimize(value);
 
             view.displayResults(result);
         } catch (NumberFormatException nfe) {

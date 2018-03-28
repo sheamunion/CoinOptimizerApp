@@ -1,5 +1,6 @@
 package com.sheamunion.CoinOptimizer;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 public class View {
@@ -18,7 +19,7 @@ public class View {
         System.out.println("Please enter a well formatted dollar value.\n - <dollarValue> formats: 3000.50 or \\$3,000.50 or '$3'");
     }
 
-    public void displayResults(Map<String, Integer> result) {
+    public void displayResults(Map<String, BigDecimal> result) {
         System.out.printf("Your dollar value has been optimized. %n %s", result);
     }
 }

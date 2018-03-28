@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,13 +59,13 @@ public class ViewTest {
     @Test
     public void displaysResults() throws Exception {
         String expectedOutput = "Your dollar value has been optimized. \n {nickel=0, dime=2, half-dollar=1, silver-dollar=0, penny=4, quarter=1}";
-        Map<String, Integer> result = new HashMap<>();
-        result.put("silver-dollar", 0);
-        result.put("half-dollar", 1);
-        result.put("quarter", 1);
-        result.put("dime", 2);
-        result.put("nickel", 0);
-        result.put("penny", 4);
+        Map<String, BigDecimal> result = new HashMap<>();
+        result.put("silver-dollar", new BigDecimal("0"));
+        result.put("half-dollar", new BigDecimal("1"));
+        result.put("quarter", new BigDecimal("1"));
+        result.put("dime", new BigDecimal("2"));
+        result.put("nickel", new BigDecimal("0"));
+        result.put("penny", new BigDecimal("4"));
 
         view.displayResults(result);
 
