@@ -40,34 +40,26 @@ public class CoinOptimizerTest {
         Map<String, Integer> caseTwoOutput = optimizer.optimize(156.0);
         Map<String, Integer> caseThreeOutput = optimizer.optimize(1285.0);
 
-        assertEquals(expectedCaseOneOutput, caseOneOutput);
-        assertEquals(expectedCaseTwoOutput, caseTwoOutput);
-        assertEquals(expectedCaseThreeOutput, caseThreeOutput);
+        assertEquals("Case one", expectedCaseOneOutput, caseOneOutput);
+        assertEquals("Case two", expectedCaseTwoOutput, caseTwoOutput);
+        assertEquals("Case three", expectedCaseThreeOutput, caseThreeOutput);
     }
 
     @Test
-    public void returnsCorrectCoinCountAndRemainder() throws Exception {
+    public void returnsCorrectCoinCount() throws Exception {
         Integer expectedCoins = 2;
-        Double expectedRemainder = 0.0;
 
-        CoinOptimizer.CustomTuple result = optimizer.getCoinsAndRemainder(200.0, 100);
-        Integer coins = result.getCoins();
-        Double remainder = result.getRemainder();
+        Integer resultCoins = optimizer.getCoins(200.0, 100);
 
-        assertEquals("Coins", expectedCoins, coins);
-        assertEquals("Remainder", expectedRemainder, remainder);
+        assertEquals("Coins", expectedCoins, resultCoins);
     }
 
     @Test
-    public void whenDollarValueIsNotAWholeNumber() throws Exception {
-        Integer expectedCoins = 5;
-        Double expectedRemainder = 49.0;
+    public void returnsCorrectRemainder() throws Exception {
+        Double expectedRemainder = 0.79;
 
-        CoinOptimizer.CustomTuple result = optimizer.getCoinsAndRemainder(299.0, 50);
-        Integer coins = result.getCoins();
-        Double remainder = result.getRemainder();
+        Double remainder = optimizer.getRemainder(0.79, 75);
 
-        assertEquals("Coins", expectedCoins, coins);
         assertEquals("Remainder", expectedRemainder, remainder);
     }
 }
