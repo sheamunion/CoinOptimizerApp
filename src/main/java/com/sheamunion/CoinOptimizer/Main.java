@@ -11,7 +11,7 @@ public class Main {
 
         if (args.length != 1) {
             view.displayWelcome();
-            view.displayUseage();
+            view.displayUsage();
 
             System.exit(1);
         }
