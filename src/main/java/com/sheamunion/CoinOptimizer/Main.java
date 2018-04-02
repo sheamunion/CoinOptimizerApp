@@ -5,17 +5,12 @@ import java.util.Map;
 
 public class Main {
 
-    public static void main(String[] args) throws IndexOutOfBoundsException, WrongNumberOfArgumentsException {
+    public static void main(String[] args) throws IllegalArgumentException {
         View view = new View();
 
-        if (args.length < 1) {
+        if (args.length != 1) {
             view.displayUsage();
-            throw new IndexOutOfBoundsException("Please provide a dollar value.");
-        }
-
-        if (args.length > 1) {
-            view.displayUsage();
-            throw new WrongNumberOfArgumentsException(0, "Please provide no more than one dollar value.");
+            throw new IllegalArgumentException("Please provide only one dollar value.");
         }
 
         try {
