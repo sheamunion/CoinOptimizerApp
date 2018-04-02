@@ -17,7 +17,7 @@ public class Main {
         }
 
         try {
-            String strippedArg = args[0].replaceAll("[^\\d.,]", "");
+            String strippedArg = args[0].replaceAll("[^\\d.]", "");
             BigDecimal value = new BigDecimal(strippedArg).multiply(new BigDecimal("100"));
 
             Map<String, BigDecimal> result = optimizer.optimize(value);
