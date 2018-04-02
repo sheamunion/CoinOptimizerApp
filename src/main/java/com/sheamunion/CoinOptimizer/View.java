@@ -7,12 +7,8 @@ public class View {
 
     public View() {}
 
-    public void displayWelcome() {
-        System.out.println("Welcome! Get the optimal coin combination for a dollar value.");
-    }
-
     public void displayUsage() {
-        System.out.println("Usage: java com.sheamunion.CoinOptimizer.Main <dollarValue>\n - <dollarValue> formats: 3000.50 or \\$3,000.50 or '$3'");
+        System.out.println("Usage: java -jar com.sheamunion.CoinOptimizer.Main <dollarValue>\n - <dollarValue> formats: 3000.50 or \\$3,000.50 or '$3'");
     }
 
     public void displayInvalidInput() {
