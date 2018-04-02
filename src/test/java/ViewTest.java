@@ -49,7 +49,7 @@ public class ViewTest {
 
     @Test
     public void displaysResults() throws Exception {
-        String expectedOutput = "Your dollar value has been optimized. \n {nickel=0, dime=2, half-dollar=1, silver-dollar=0, penny=4, quarter=1}";
+        String expectedOutput = "Your dollar value has been optimized. \n {nickel=0, dime=2, half-dollar=1, silver-dollar=0, penny=4, quarter=1} \n";
         Map<String, BigDecimal> result = new HashMap<>();
         result.put("silver-dollar", new BigDecimal("0"));
         result.put("half-dollar", new BigDecimal("1"));

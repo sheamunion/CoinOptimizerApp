@@ -16,6 +16,6 @@ public class View {
     }
 
     public void displayResults(Map<String, BigDecimal> result) {
-        System.out.printf("Your dollar value has been optimized. %n %s", result);
+        System.out.printf("Your dollar value has been optimized. %n %s %n", result);
     }
 }
