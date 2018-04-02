@@ -5,18 +5,22 @@ import java.util.Map;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IndexOutOfBoundsException, WrongNumberOfArgumentsException {
         View view = new View();
-        CoinOptimizer optimizer = new CoinOptimizer();
 
-        if (args.length != 1) {
-            view.displayWelcome();
+        if (args.length < 1) {
             view.displayUsage();
+            throw new IndexOutOfBoundsException("Please provide a dollar value.");
+        }
 
-            System.exit(1);
+        if (args.length > 1) {
+            view.displayUsage();
+            throw new WrongNumberOfArgumentsException(0, "Please provide no more than one dollar value.");
         }
 
         try {
+            CoinOptimizer optimizer = new CoinOptimizer();
+
             String strippedArg = args[0].replaceAll("[^\\d.]", "");
             BigDecimal value = new BigDecimal(strippedArg).multiply(new BigDecimal("100"));
 
