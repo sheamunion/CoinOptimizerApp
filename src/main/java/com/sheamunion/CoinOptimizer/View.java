@@ -8,7 +8,7 @@ public class View {
     public View() {}
 
     public void displayUsage() {
-        System.out.println("Usage: java -jar com.sheamunion.CoinOptimizer.Main <dollarValue>\n - <dollarValue> formats: 3000.50 or \\$3,000.50 or '$3'");
+        System.out.println("Usage: java -jar path/to/CoinOptimizer-<version>.jar <dollarValue>\n - <dollarValue> formats: 3000.50 or \\$3,000.50 or '$3'");
     }
 
     public void displayInvalidInput() {

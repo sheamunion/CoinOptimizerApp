@@ -31,7 +31,7 @@ public class ViewTest {
 
     @Test
     public void displaysHowToUseTheCLI() throws Exception {
-        String expectedOutput = "Usage: java -jar com.sheamunion.CoinOptimizer.Main <dollarValue>\n - <dollarValue> formats: 3000.50 or \\$3,000.50 or '$3'\n";
+        String expectedOutput = "Usage: java -jar path/to/CoinOptimizer-<version>.jar <dollarValue>\n - <dollarValue> formats: 3000.50 or \\$3,000.50 or '$3'\n";
 
         view.displayUsage();
 
