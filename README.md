@@ -31,15 +31,15 @@ java -jar target/CoinOptimizer-<version>.jar <dollarValue>
 A well-formatted dollar value.
 
 ```
-java -jar CoinOptimizer.jar 3.50
+java -jar target/CoinOptimizer-<version>.jar 3.50
 ```
 
 ```
-java -jar CoinOptimizer.jar \$3,000.50
+java -jar target/CoinOptimizer-<version>.jar \$3,000.50
 ```
 
 ```
-java -jar CoinOptimizer.jar '$3'
+java -jar target/CoinOptimizer-<version>.jar '$3'
 ```
 
 ## Output:
